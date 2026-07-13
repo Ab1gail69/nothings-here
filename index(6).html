@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>what are you doing here?</title>
+<style>
+:root{
+  --bg:#08090c;
+  --panel:#101115ee;
+  --panel2:#16181f;
+  --text:#f4f4f6;
+  --muted:#aeb3bf;
+  --line:#23252f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Inter,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top,#24243e55,transparent 40%),
+    radial-gradient(circle at bottom,#11182755,transparent 35%),
+    var(--bg);
+}
+.card{
+  width:min(820px,92%);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:48px;
+  box-shadow:0 25px 80px rgba(0,0,0,.55);
+  backdrop-filter:blur(12px);
+}
+.small{
+  color:#8f95a3;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:.75rem;
+  font-weight:700;
+}
+h1{
+  margin:12px 0;
+  font-size:clamp(3rem,8vw,5.8rem);
+  line-height:.92;
+  letter-spacing:-.05em;
+}
+p{
+  color:var(--muted);
+  font-size:1.08rem;
+  line-height:1.7;
+}
+button,a{
+  border:none;
+  padding:14px 22px;
+  border-radius:14px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  transition:.2s;
+}
+button:hover,a:hover{transform:translateY(-2px)}
+#start{background:#fff;color:#111}
+#deny{
+  background:#191b22;
+  color:#fff;
+  border:1px solid #2a2c36;
+  position:relative;
+}
+#panel{
+  margin-top:28px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.stage{
+  display:none;
+  margin-top:30px;
+  padding:24px;
+  border-radius:18px;
+  background:var(--panel2);
+  border:1px solid #2a2d36;
+}
+.stage.show{
+  display:block;
+  animation:fadeUp .35s ease;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+.verify-bar{
+  height:11px;
+  margin:18px 0 10px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#20222a;
+  border:1px solid #2b2e38;
+}
+#verifyFill{
+  width:0;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,#f4f4f6,#777d89);
+  transition:width .12s linear;
+}
+#verifyText{
+  margin-bottom:14px;
+  color:#8f95a3;
+  font-weight:700;
+}
+#scanButton{
+  background:#f4f4f6;
+  color:#111318;
+}
+#scanButton:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+.choice-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.choice-row button{
+  background:#1b1d25;
+  color:#fff;
+  border:1px solid #2b2e38;
+}
+.links{
+  display:grid;
+  gap:10px;
+  margin-top:18px;
+}
+.social-link{
+  width:100%;
+  padding:14px;
+  color:white;
+  background:#1b1d25;
+  border:1px solid #2a2d36;
+  border-radius:12px;
+}
+.social-link img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  filter:invert(1);
+}
+.social-link span:last-child{
+  margin-left:auto;
+  color:#7f8490;
+}
+.profile-result{
+  margin-top:22px;
+  padding:22px;
+  border-radius:18px;
+  background:#12141a;
+  border:1px solid #2a2d36;
+}
+.profile-result h3{margin:0 0 6px}
+.profile-result p{margin:0 0 14px}
+.note{
+  margin-top:18px;
+  color:#727784;
+  font-size:.85rem;
+}
+@media(max-width:560px){
+  .card{padding:28px 22px}
+  #panel,.choice-row{display:grid}
+  button,a{width:100%;justify-content:flex-start}
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <div class="small">private page</div>
+  <h1>what are you doing here?</h1>
+
+  <p>
+    You weren't really supposed to find this page.
+    But since you're already here, let's see how curious you are.
+  </p>
+
+  <div id="panel">
+    <button id="start">I'm just curious</button>
+    <button id="deny">I wasn't stalking</button>
+  </div>
+
+  <section id="scannerStage" class="stage">
+    <h2>One quick verification.</h2>
+    <p>Click once and let the scanner finish.</p>
+
+    <div class="verify-bar">
+      <div id="verifyFill"></div>
+    </div>
+
+    <div id="verifyText">Ready</div>
+    <button id="scanButton">Start verification</button>
+  </section>
+
+  <section id="identityStage" class="stage">
+    <h2>How do you know me?</h2>
+
+    <div class="choice-row">
+      <button data-profile="dazel">Dazel</button>
+      <button data-profile="cartier">Cart1er</button>
+      <button data-profile="ali">Ali</button>
+    </div>
+
+    <div id="content"></div>
+    <div class="note">No tracking. No personal data collection.</div>
+  </section>
+</div>
+
+<script>
+const panel = document.getElementById("panel");
+const start = document.getElementById("start");
+const deny = document.getElementById("deny");
+const scannerStage = document.getElementById("scannerStage");
+const identityStage = document.getElementById("identityStage");
+const scanButton = document.getElementById("scanButton");
+const verifyFill = document.getElementById("verifyFill");
+const verifyText = document.getElementById("verifyText");
+const content = document.getElementById("content");
+
+function moveDeny(){
+  const x = (Math.random() * 240) - 120;
+  const y = (Math.random() * 120) - 60;
+  deny.style.transform = `translate(${x}px,${y}px)`;
+
+  const labels = ["really?","nice try","not so fast","admit it","caught"];
+  deny.textContent = labels[Math.floor(Math.random() * labels.length)];
+}
+
+deny.addEventListener("mouseenter", moveDeny);
+deny.addEventListener("click", moveDeny);
+deny.addEventListener("touchstart", event => {
+  event.preventDefault();
+  moveDeny();
+});
+
+start.addEventListener("click", () => {
+  panel.style.display = "none";
+  scannerStage.classList.add("show");
+  scannerStage.scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+scanButton.addEventListener("click", () => {
+  if (scanButton.disabled) return;
+
+  scanButton.disabled = true;
+  scanButton.textContent = "Scanning...";
+  verifyText.textContent = "0%";
+  verifyFill.style.width = "0%";
+
+  let progress = 0;
+
+  const timer = setInterval(() => {
+    progress += Math.floor(Math.random() * 8) + 4;
+    if (progress > 100) progress = 100;
+
+    verifyFill.style.width = progress + "%";
+    verifyText.textContent = progress < 100 ? progress + "%" : "Verification complete";
+
+    if (progress === 100) {
+      clearInterval(timer);
+
+      setTimeout(() => {
+        scannerStage.classList.remove("show");
+        scannerStage.style.display = "none";
+        identityStage.classList.add("show");
+        identityStage.scrollIntoView({behavior:"smooth", block:"center"});
+      }, 450);
+    }
+  }, 105);
+});
+
+function socialLink(url, icon, label){
+  return `
+    <a class="social-link" target="_blank" rel="noopener noreferrer" href="${url}">
+      <img src="${icon}" alt="">
+      <strong>${label}</strong>
+      <span>↗</span>
+    </a>
+  `;
+}
+
+document.querySelectorAll("[data-profile]").forEach(button => {
+  button.addEventListener("click", () => {
+    const profile = button.dataset.profile;
+
+    if(profile === "dazel"){
+      content.innerHTML = `
+        <div class="profile-result">
+          <h3>Dazel</h3>
+          <p>You made it through. Here are the actual links.</p>
+          <div class="links">
+            ${socialLink(
+              "https://www.tiktok.com/@dazelxml",
+              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/tiktok.svg",
+              "TikTok — @dazelxml"
+            )}
+            ${socialLink(
+              "https://www.youtube.com/@dazelxml",
+              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/youtube.svg",
+              "YouTube — @dazelxml"
+            )}
+          </div>
+        </div>`;
+    } else if(profile === "cartier"){
+      content.innerHTML = `
+        <div class="profile-result">
+          <h3>Cart1er</h3>
+          <p>You made it through. Here are the actual links.</p>
+          <div class="links">
+            ${socialLink(
+              "https://www.instagram.com/decartierrr/",
+              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/instagram.svg",
+              "Instagram — @decartierrr"
+            )}
+            ${socialLink(
+              "https://www.tiktok.com/@aliiyourbae",
+              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/tiktok.svg",
+              "TikTok — @aliiyourbae"
+            )}
+            ${socialLink(
+              "https://t.me/valhallagroupx",
+              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/telegram.svg",
+              "Telegram — valhallagroupx"
+            )}
+            ${socialLink(
+              "https://open.spotify.com/user/62sosr22ko2z4idqadvijrrmv?si=81fdc35bd1d1428e",
+              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/spotify.svg",
+              "Spotify — Cart1er"
+            )}
+          </div>
+        </div>`;
+    } else {
+      content.innerHTML = `
+        <div class="profile-result">
+          <h3>Ali</h3>
+          <p>I'm not here anymore</p>
+        </div>`;
+    }
+
+    content.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+});
+</script>
+</body>
+</html>
