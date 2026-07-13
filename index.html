@@ -2,361 +2,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>what are you doing here?</title>
-<style>
-:root{
-  --bg:#08090c;
-  --panel:#101115ee;
-  --panel2:#16181f;
-  --text:#f4f4f6;
-  --muted:#aeb3bf;
-  --line:#23252f;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:Inter,Arial,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at top,#24243e55,transparent 40%),
-    radial-gradient(circle at bottom,#11182755,transparent 35%),
-    var(--bg);
-}
-.card{
-  width:min(820px,92%);
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:28px;
-  padding:48px;
-  box-shadow:0 25px 80px rgba(0,0,0,.55);
-  backdrop-filter:blur(12px);
-}
-.small{
-  color:#8f95a3;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-  font-size:.75rem;
-  font-weight:700;
-}
-h1{
-  margin:12px 0;
-  font-size:clamp(3rem,8vw,5.8rem);
-  line-height:.92;
-  letter-spacing:-.05em;
-}
-p{
-  color:var(--muted);
-  font-size:1.08rem;
-  line-height:1.7;
-}
-button,a{
-  border:none;
-  padding:14px 22px;
-  border-radius:14px;
-  font:inherit;
-  font-weight:700;
-  cursor:pointer;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  transition:.2s;
-}
-button:hover,a:hover{transform:translateY(-2px)}
-#start{background:#fff;color:#111}
-#deny{
-  background:#191b22;
-  color:#fff;
-  border:1px solid #2a2c36;
-  position:relative;
-}
-#panel{
-  margin-top:28px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.stage{
-  display:none;
-  margin-top:30px;
-  padding:24px;
-  border-radius:18px;
-  background:var(--panel2);
-  border:1px solid #2a2d36;
-}
-.stage.show{
-  display:block;
-  animation:fadeUp .35s ease;
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
-}
-.verify-bar{
-  height:11px;
-  margin:18px 0 10px;
-  overflow:hidden;
-  border-radius:999px;
-  background:#20222a;
-  border:1px solid #2b2e38;
-}
-#verifyFill{
-  width:0;
-  height:100%;
-  border-radius:inherit;
-  background:linear-gradient(90deg,#f4f4f6,#777d89);
-  transition:width .12s linear;
-}
-#verifyText{
-  margin-bottom:14px;
-  color:#8f95a3;
-  font-weight:700;
-}
-#scanButton{
-  background:#f4f4f6;
-  color:#111318;
-}
-#scanButton:disabled{
-  opacity:.65;
-  cursor:not-allowed;
-}
-.choice-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.choice-row button{
-  background:#1b1d25;
-  color:#fff;
-  border:1px solid #2b2e38;
-}
-.links{
-  display:grid;
-  gap:10px;
-  margin-top:18px;
-}
-.social-link{
-  width:100%;
-  padding:14px;
-  color:white;
-  background:#1b1d25;
-  border:1px solid #2a2d36;
-  border-radius:12px;
-}
-.social-link img{
-  width:22px;
-  height:22px;
-  object-fit:contain;
-  filter:invert(1);
-}
-.social-link span:last-child{
-  margin-left:auto;
-  color:#7f8490;
-}
-.profile-result{
-  margin-top:22px;
-  padding:22px;
-  border-radius:18px;
-  background:#12141a;
-  border:1px solid #2a2d36;
-}
-.profile-result h3{margin:0 0 6px}
-.profile-result p{margin:0 0 14px}
-.note{
-  margin-top:18px;
-  color:#727784;
-  font-size:.85rem;
-}
-@media(max-width:560px){
-  .card{padding:28px 22px}
-  #panel,.choice-row{display:grid}
-  button,a{width:100%;justify-content:flex-start}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050608" />
+  <title>Nothing's Here</title>
+
+  <style>
+    :root {
+      --bg: #050608;
+      --panel: #0d0f13;
+      --panel-2: #12151a;
+      --text: #f5f6f7;
+      --muted: #858b95;
+      --line: rgba(255,255,255,.08);
+      --soft: rgba(255,255,255,.045);
+      --accent: #f5f6f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255,255,255,.07), transparent 28%),
+        radial-gradient(circle at 10% 90%, rgba(255,255,255,.035), transparent 24%),
+        var(--bg);
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .screen {
+      width: min(920px, 100%);
+      min-height: 580px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: fadeIn .65s ease both;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .center {
+      width: min(760px, 100%);
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 18px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(4rem, 14vw, 9rem);
+      line-height: .88;
+      letter-spacing: -.075em;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      margin: 24px auto 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.5vw, 1.18rem);
+      line-height: 1.75;
+    }
+
+    .ghost-line {
+      color: #d7d9dd;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      margin-top: 18px;
+    }
+
+    .button-row {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      min-height: 52px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 13px 21px;
+      cursor: pointer;
+      transition: .2s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 132px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08090b;
+      border-color: transparent;
+      font-weight: 800;
+    }
+
+    .btn-dark {
+      background: var(--soft);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .progress-wrap {
+      width: min(620px, 100%);
+      margin: 34px auto 0;
+      text-align: left;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #171a1f;
+      border: 1px solid var(--line);
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #6b7078, #f3f4f6);
+      border-radius: inherit;
+      transition: width .16s linear;
+    }
+
+    .logs {
+      width: min(620px, 100%);
+      margin: 24px auto 0;
+      padding: 18px;
+      min-height: 170px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+      text-align: left;
+      color: #a7acb5;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+
+    .log-line {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: lineIn .28s ease forwards;
+    }
+
+    @keyframes lineIn {
+      to { opacity: 1; transform: none; }
+    }
+
+    .analysis {
+      width: min(760px, 100%);
+    }
+
+    .analysis h2,
+    .identity h2 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 4.8rem);
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .metrics {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--soft);
+      text-align: left;
+    }
+
+    .metric span {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .11em;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 12px;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      letter-spacing: -.04em;
+    }
+
+    .identity-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .identity-card {
+      padding: 24px;
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--soft);
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: .2s ease;
+    }
+
+    .identity-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .identity-card strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .identity-card span {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .profile-card {
+      width: min(700px, 100%);
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      text-align: left;
+    }
+
+    .profile-card h2 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      letter-spacing: -.05em;
+    }
+
+    .profile-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .social-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--soft);
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: .2s ease;
+    }
+
+    .social-link:hover {
+      transform: translateX(4px);
+      border-color: rgba(255,255,255,.2);
+    }
+
+    .social-link img {
+      width: 22px;
+      height: 22px;
+      filter: invert(1);
+      opacity: .92;
+    }
+
+    .social-link span:last-child {
+      margin-left: auto;
+      color: var(--muted);
+    }
+
+    .ali-message {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .ali-message h2 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      margin: 0;
+      letter-spacing: -.05em;
+    }
+
+    .ali-message p {
+      color: var(--muted);
+      margin-top: 18px;
+      font-size: 1.05rem;
+    }
+
+    .fine {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 14px;
+      text-align: center;
+      color: #5e646d;
+      font-size: .74rem;
+      letter-spacing: .04em;
+      pointer-events: none;
+    }
+
+    #runaway {
+      position: relative;
+    }
+
+    @media (max-width: 760px) {
+      .metrics,
+      .identity-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .screen {
+        min-height: 520px;
+      }
+
+      .profile-card {
+        padding: 22px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .button-row {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: clamp(3.2rem, 18vw, 5.2rem);
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div class="card">
-  <div class="small">private page</div>
-  <h1>what are you doing here?</h1>
+  <main class="app">
+    <section class="screen active" id="landing">
+      <div class="center">
+        <div class="eyebrow">private page</div>
+        <h1>NOTHING'S HERE</h1>
+        <div class="ghost-line">...or maybe there is.</div>
 
-  <p>
-    You weren't really supposed to find this page.
-    But since you're already here, let's see how curious you are.
-  </p>
+        <div class="button-row" id="landingButtons">
+          <button class="btn btn-primary" id="continueBtn">continue</button>
+          <button class="btn btn-dark" id="runaway">leave this page</button>
+        </div>
+      </div>
+    </section>
 
-  <div id="panel">
-    <button id="start">I'm just curious</button>
-    <button id="deny">I wasn't stalking</button>
-  </div>
+    <section class="screen" id="loading">
+      <div class="center">
+        <div class="eyebrow">one moment</div>
+        <h1 style="font-size:clamp(3rem,10vw,6rem)">initializing...</h1>
 
-  <section id="scannerStage" class="stage">
-    <h2>One quick verification.</h2>
-    <p>Click once and let the scanner finish.</p>
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="statusText">preparing</span>
+            <strong id="percent">0%</strong>
+          </div>
 
-    <div class="verify-bar">
-      <div id="verifyFill"></div>
-    </div>
+          <div class="progress">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
 
-    <div id="verifyText">Ready</div>
-    <button id="scanButton">Start verification</button>
-  </section>
+        <div class="logs" id="logs">
+          <div>&gt; waiting for permission...</div>
+        </div>
+      </div>
+    </section>
 
-  <section id="identityStage" class="stage">
-    <h2>How do you know me?</h2>
+    <section class="screen" id="analysis">
+      <div class="analysis">
+        <div class="eyebrow">analysis complete</div>
+        <h2>You weren't supposed to find this page.</h2>
+        <p class="subtitle" style="margin-left:0;text-align:left">
+          But since you're already here, we ran a completely unnecessary curiosity test.
+        </p>
 
-    <div class="choice-row">
-      <button data-profile="dazel">Dazel</button>
-      <button data-profile="cartier">Cart1er</button>
-      <button data-profile="ali">Ali</button>
-    </div>
+        <div class="metrics">
+          <div class="metric">
+            <span>Curiosity</span>
+            <strong>100%</strong>
+          </div>
 
-    <div id="content"></div>
-    <div class="note">No tracking. No personal data collection.</div>
-  </section>
-</div>
+          <div class="metric">
+            <span>Self control</span>
+            <strong>2%</strong>
+          </div>
 
-<script>
-const panel = document.getElementById("panel");
-const start = document.getElementById("start");
-const deny = document.getElementById("deny");
-const scannerStage = document.getElementById("scannerStage");
-const identityStage = document.getElementById("identityStage");
-const scanButton = document.getElementById("scanButton");
-const verifyFill = document.getElementById("verifyFill");
-const verifyText = document.getElementById("verifyText");
-const content = document.getElementById("content");
+          <div class="metric">
+            <span>Stalking probability</span>
+            <strong>98.7%</strong>
+          </div>
+        </div>
 
-function moveDeny(){
-  const x = (Math.random() * 240) - 120;
-  const y = (Math.random() * 120) - 60;
-  deny.style.transform = `translate(${x}px,${y}px)`;
+        <div class="button-row" style="justify-content:flex-start">
+          <button class="btn btn-primary" id="analysisContinue">continue</button>
+        </div>
+      </div>
+    </section>
 
-  const labels = ["really?","nice try","not so fast","admit it","caught"];
-  deny.textContent = labels[Math.floor(Math.random() * labels.length)];
-}
+    <section class="screen" id="identity">
+      <div class="identity">
+        <div class="eyebrow">final question</div>
+        <h2>How do you know me?</h2>
 
-deny.addEventListener("mouseenter", moveDeny);
-deny.addEventListener("click", moveDeny);
-deny.addEventListener("touchstart", event => {
-  event.preventDefault();
-  moveDeny();
-});
+        <div class="identity-grid">
+          <button class="identity-card" data-profile="dazel">
+            <strong>Dazel</strong>
+            <span>Streaming and creator side.</span>
+          </button>
 
-start.addEventListener("click", () => {
-  panel.style.display = "none";
-  scannerStage.classList.add("show");
-  scannerStage.scrollIntoView({behavior:"smooth", block:"center"});
-});
+          <button class="identity-card" data-profile="cartier">
+            <strong>Cart1er</strong>
+            <span>Socials, Telegram, and Spotify.</span>
+          </button>
 
-scanButton.addEventListener("click", () => {
-  if (scanButton.disabled) return;
+          <button class="identity-card" data-profile="ali">
+            <strong>Ali</strong>
+            <span>Something else entirely.</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
-  scanButton.disabled = true;
-  scanButton.textContent = "Scanning...";
-  verifyText.textContent = "0%";
-  verifyFill.style.width = "0%";
+    <section class="screen" id="profile">
+      <div id="profileContent"></div>
+    </section>
+  </main>
 
-  let progress = 0;
+  <div class="fine">no tracking • no data collection</div>
 
-  const timer = setInterval(() => {
-    progress += Math.floor(Math.random() * 8) + 4;
-    if (progress > 100) progress = 100;
+  <script>
+    const screens = {
+      landing: document.getElementById("landing"),
+      loading: document.getElementById("loading"),
+      analysis: document.getElementById("analysis"),
+      identity: document.getElementById("identity"),
+      profile: document.getElementById("profile")
+    };
 
-    verifyFill.style.width = progress + "%";
-    verifyText.textContent = progress < 100 ? progress + "%" : "Verification complete";
+    const continueBtn = document.getElementById("continueBtn");
+    const runaway = document.getElementById("runaway");
+    const landingButtons = document.getElementById("landingButtons");
+    const progressFill = document.getElementById("progressFill");
+    const percent = document.getElementById("percent");
+    const statusText = document.getElementById("statusText");
+    const logs = document.getElementById("logs");
+    const analysisContinue = document.getElementById("analysisContinue");
+    const profileContent = document.getElementById("profileContent");
 
-    if (progress === 100) {
-      clearInterval(timer);
+    function showScreen(name) {
+      Object.values(screens).forEach(screen => screen.classList.remove("active"));
+      screens[name].classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
+    function addLog(text, delay) {
       setTimeout(() => {
-        scannerStage.classList.remove("show");
-        scannerStage.style.display = "none";
-        identityStage.classList.add("show");
-        identityStage.scrollIntoView({behavior:"smooth", block:"center"});
-      }, 450);
-    }
-  }, 105);
-});
-
-function socialLink(url, icon, label){
-  return `
-    <a class="social-link" target="_blank" rel="noopener noreferrer" href="${url}">
-      <img src="${icon}" alt="">
-      <strong>${label}</strong>
-      <span>↗</span>
-    </a>
-  `;
-}
-
-document.querySelectorAll("[data-profile]").forEach(button => {
-  button.addEventListener("click", () => {
-    const profile = button.dataset.profile;
-
-    if(profile === "dazel"){
-      content.innerHTML = `
-        <div class="profile-result">
-          <h3>Dazel</h3>
-          <p>You made it through. Here are the actual links.</p>
-          <div class="links">
-            ${socialLink(
-              "https://www.tiktok.com/@dazelxml",
-              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/tiktok.svg",
-              "TikTok — @dazelxml"
-            )}
-            ${socialLink(
-              "https://www.youtube.com/@dazelxml",
-              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/youtube.svg",
-              "YouTube — @dazelxml"
-            )}
-          </div>
-        </div>`;
-    } else if(profile === "cartier"){
-      content.innerHTML = `
-        <div class="profile-result">
-          <h3>Cart1er</h3>
-          <p>You made it through. Here are the actual links.</p>
-          <div class="links">
-            ${socialLink(
-              "https://www.instagram.com/decartierrr/",
-              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/instagram.svg",
-              "Instagram — @decartierrr"
-            )}
-            ${socialLink(
-              "https://www.tiktok.com/@aliiyourbae",
-              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/tiktok.svg",
-              "TikTok — @aliiyourbae"
-            )}
-            ${socialLink(
-              "https://t.me/valhallagroupx",
-              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/telegram.svg",
-              "Telegram — valhallagroupx"
-            )}
-            ${socialLink(
-              "https://open.spotify.com/user/62sosr22ko2z4idqadvijrrmv?si=81fdc35bd1d1428e",
-              "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/spotify.svg",
-              "Spotify — Cart1er"
-            )}
-          </div>
-        </div>`;
-    } else {
-      content.innerHTML = `
-        <div class="profile-result">
-          <h3>Ali</h3>
-          <p>I'm not here anymore</p>
-        </div>`;
+        const line = document.createElement("div");
+        line.className = "log-line";
+        line.textContent = "> " + text;
+        logs.appendChild(line);
+        logs.scrollTop = logs.scrollHeight;
+      }, delay);
     }
 
-    content.scrollIntoView({behavior:"smooth", block:"center"});
-  });
-});
-</script>
+    function moveRunaway() {
+      const maxX = Math.max(80, landingButtons.clientWidth - runaway.offsetWidth);
+      const x = Math.floor(Math.random() * maxX) - maxX / 2;
+      const y = Math.floor(Math.random() * 100) - 50;
+      runaway.style.transform = `translate(${x}px, ${y}px)`;
+
+      const labels = [
+        "not so fast",
+        "really?",
+        "you looked curious",
+        "nice try",
+        "still here?"
+      ];
+
+      runaway.textContent = labels[Math.floor(Math.random() * labels.length)];
+    }
+
+    runaway.addEventListener("mouseenter", moveRunaway);
+    runaway.addEventListener("click", moveRunaway);
+    runaway.addEventListener("touchstart", event => {
+      event.preventDefault();
+      moveRunaway();
+    });
+
+    continueBtn.addEventListener("click", () => {
+      showScreen("loading");
+
+      logs.innerHTML = "<div>&gt; initialization started...</div>";
+
+      const messages = [
+        ["checking visitor...", 500],
+        ["finding reason for being here...", 1100],
+        ["measuring curiosity...", 1700],
+        ["checking self control...", 2300],
+        ["calculating stalking probability...", 2900],
+        ["finalizing analysis...", 3500]
+      ];
+
+      messages.forEach(([message, delay]) => addLog(message, delay));
+
+      let value = 0;
+      const timer = setInterval(() => {
+        value += Math.floor(Math.random() * 7) + 4;
+        if (value > 100) value = 100;
+
+        progressFill.style.width = value + "%";
+        percent.textContent = value + "%";
+
+        if (value < 25) statusText.textContent = "checking visitor";
+        else if (value < 50) statusText.textContent = "finding reason";
+        else if (value < 75) statusText.textContent = "measuring curiosity";
+        else if (value < 100) statusText.textContent = "finalizing";
+        else statusText.textContent = "complete";
+
+        if (value === 100) {
+          clearInterval(timer);
+          setTimeout(() => showScreen("analysis"), 700);
+        }
+      }, 120);
+    });
+
+    analysisContinue.addEventListener("click", () => showScreen("identity"));
+
+    function socialLink(url, icon, label) {
+      return `
+        <a class="social-link" href="${url}" target="_blank" rel="noopener noreferrer">
+          <img src="${icon}" alt="">
+          <strong>${label}</strong>
+          <span>↗</span>
+        </a>
+      `;
+    }
+
+    function renderProfile(profile) {
+      if (profile === "dazel") {
+        profileContent.innerHTML = `
+          <div class="profile-card">
+            <div class="eyebrow">Dazel</div>
+            <h2>you found the creator side.</h2>
+            <p>These are the actual links.</p>
+
+            <div class="social-list">
+              ${socialLink(
+                "https://www.tiktok.com/@dazelxml",
+                "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/tiktok.svg",
+                "TikTok — @dazelxml"
+              )}
+              ${socialLink(
+                "https://www.youtube.com/@dazelxml",
+                "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/youtube.svg",
+                "YouTube — @dazelxml"
+              )}
+            </div>
+          </div>
+        `;
+      } else if (profile === "cartier") {
+        profileContent.innerHTML = `
+          <div class="profile-card">
+            <div class="eyebrow">Cart1er</div>
+            <h2>you made it through.</h2>
+            <p>These are the actual links.</p>
+
+            <div class="social-list">
+              ${socialLink(
+                "https://www.instagram.com/decartierrr/",
+                "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/instagram.svg",
+                "Instagram — @decartierrr"
+              )}
+              ${socialLink(
+                "https://www.tiktok.com/@aliiyourbae",
+                "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/tiktok.svg",
+                "TikTok — @aliiyourbae"
+              )}
+              ${socialLink(
+                "https://t.me/valhallagroupx",
+                "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/telegram.svg",
+                "Telegram — valhallagroupx"
+              )}
+              ${socialLink(
+                "https://open.spotify.com/user/62sosr22ko2z4idqadvijrrmv?si=81fdc35bd1d1428e",
+                "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/spotify.svg",
+                "Spotify — Cart1er"
+              )}
+            </div>
+          </div>
+        `;
+      } else {
+        profileContent.innerHTML = `
+          <div class="profile-card ali-message">
+            <div class="eyebrow">Ali</div>
+            <h2>I'm not here anymore</h2>
+            <p>Goodbye.</p>
+          </div>
+        `;
+      }
+
+      showScreen("profile");
+    }
+
+    document.querySelectorAll("[data-profile]").forEach(button => {
+      button.addEventListener("click", () => renderProfile(button.dataset.profile));
+    });
+  </script>
 </body>
 </html>
